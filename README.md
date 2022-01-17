@@ -10,6 +10,13 @@ Home task #25
 5. add #2 controller to save file
 
 ### Technologies
-...you will see it later
+* Java 11
+* Maven
+* Slf4j+Logback
+* Jetty
+* SpringMVC
 ### How to run
-...you will see it later
+`mvn clean package`
+* Start servlet container and deploy war-file
+* MainPage: /
+* UploadPage: /upload

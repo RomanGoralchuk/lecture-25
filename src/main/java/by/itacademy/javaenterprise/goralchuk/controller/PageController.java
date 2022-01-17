@@ -16,10 +16,10 @@ public class PageController {
     private PageInfoService pageInfoService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView welcomePage(){
+    public ModelAndView welcomePage() {
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("nameApp",pageInfoService.getAppName());
-        modelAndView.addObject("baseText",pageInfoService.getAppMessage());
+        modelAndView.addObject("nameApp", pageInfoService.getAppName());
+        modelAndView.addObject("baseText", pageInfoService.getAppMessage());
         return modelAndView;
     }
 }

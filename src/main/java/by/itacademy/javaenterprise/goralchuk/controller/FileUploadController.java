@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,27 +22,20 @@ public class FileUploadController {
     private FileUploadService fileUploadService;
 
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
-    public ModelAndView uploadPage(){
+    public ModelAndView uploadPage() {
         ModelAndView modelAndView = new ModelAndView("upload");
-        modelAndView.addObject("nameApp",pageInfoService.getAppName());
+        modelAndView.addObject("nameApp", pageInfoService.getAppName());
         return modelAndView;
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public ModelAndView uploadFile(@RequestParam("file") MultipartFile multipartFile, HttpSession session){
+    public ModelAndView uploadFile(@RequestParam("file") MultipartFile multipartFile) {
         ModelAndView modelAndView = new ModelAndView("show");
-        String uploadDir = session.getServletContext().getRealPath("/") + "/resources/";
-
-        if(fileUploadService.saveFile(uploadDir, multipartFile)){
+        if (fileUploadService.saveFile(multipartFile)) {
             Map<String, Object> modelMap = new HashMap<>();
             modelMap.put("fileName", multipartFile.getOriginalFilename());
             modelMap.put("fileSize", multipartFile.getSize());
-            try {
-                modelMap.put("filePath", multipartFile.getResource().getURI());
-            } catch (IOException e) {
-                log.error("Error url {}", e.getMessage(), e);
-            }
             modelAndView.addAllObjects(modelMap);
             return modelAndView;
         }
